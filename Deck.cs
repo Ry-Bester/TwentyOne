@@ -13,7 +13,7 @@ namespace TwentyOne
             Cards = new List<Card>();
 
 
-            for (int i = 0; 1 < 13;i++ )
+            for (int i = 0; i < 13;i++ )
             {
                 for (int j = 0; j < 4; j++)
                 {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace TwentyOne
 {
@@ -10,17 +11,36 @@ namespace TwentyOne
     {
         static void Main(string[] args)
         {
-            
+            string text = "here is some text";
+            File.WriteAllText(@"C:\Users\Ryan\Logs", text);
 
-            Deck deck = new Deck();
-            deck.Shuffle(3);
+            Console.WriteLine("Welcome to the game of black jack. start by telling me your name");
+            string playerName = Console.ReadLine();
 
-            foreach (Card card in deck.Cards)
+            Console.WriteLine("and how much money did you bring today?");
+            int bank = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Hello {0}. would you like to join a game of 21 right now?", playerName);
+            string answer = Console.ReadLine().ToLower();
+
+            if (answer == "yes" || answer =="yeah" || answer =="y" || answer == "ya")
             {
-                Console.WriteLine(card.Face + " of " + card.Suit);
+                Player player = new Player(playerName,bank);
+                Game game = new TwentyOneGame();
+                game += player;
+                player.isActivelyPlaying = true;
+                while(player.isActivelyPlaying && player.Balance > 0)
+                {
+                    game.Play();
+                }
+                game -= player;
+                Console.WriteLine("thank you for playing!");
             }
-            Console.WriteLine(deck.Cards.Count);
-            Console.ReadLine();
+            Console.WriteLine("Feel free to look around the casino. Bye for now.");
+            Console.Read();
+
+
+          
         }
     }
 }
